@@ -4,7 +4,7 @@ import Register from './Register';
 function App() {
   return (
     <div>
-      <main>
+      <main className="App">
         <Register />
       </main>
     </div>

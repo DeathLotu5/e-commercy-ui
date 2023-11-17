@@ -4,7 +4,7 @@ import { faCheck, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icon
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8, 24}$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const Register = () => {
     const userRef = useRef();
@@ -117,6 +117,33 @@ const Register = () => {
                 <span aria-label='dollar sign'>$</span>
                 <span aria-label='percent'>%</span>
                 .
+            </p>
+
+            <label htmlFor="confirm_pwd">
+                Confirm Password:
+                <span className={validMatch && matchPwd ? "valid" : "hide"}>
+                    <FontAwesomeIcon icon={faCheck} />
+                </span>
+
+                <span className={validMatch || !matchPwd ? "hide" : "valid"}>
+                    <FontAwesomeIcon icon={faTimes} />
+                </span>
+            </label>
+
+            <input
+                type='password'
+                id='confirm_pwd'
+                onChange={(e) => setMatchPwd(e.target.value)}
+                required
+                aria-invalid={validPwd ? "false" : "true"}
+                aria-describedby='confirmnote'
+                onFocus={() => setMatchFocus(true)}
+                onBlur={() => setMatchFocus(false)}
+            />
+
+            <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
+                <FontAwesomeIcon icon={faInfoCircle} />
+                Must match the first password input field
             </p>
         </form>
     </section>
